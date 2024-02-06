@@ -1,39 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edit <%=selectedCampground.title%></title>
-</head>
-<body>
-    <h1>Edit Campground</h1>
-    <form action="/campgrounds/<%=selectedCampground.id%>?_method=PUT" method="post">
-        <div>
-            <label for="title">Title</label>
-            <input type="text" name="campground[title]" id="title" placeholder="Campground's name" value="<%=selectedCampground.title%>">
-        </div>
-        <div>
-            <label for="location">Location</label>
-            <input type="text" name="campground[location]" id="location"placeholder="Where can we find this campground?" value="<%=selectedCampground.location%>">
-        </div>
-        <div>
-            <label for="price">Price</label>
-            <input type="text" name="campground[price]" id="price" placeholder="Price in USD" value="<%=selectedCampground.price%>">
-        </div>
-        <div>
-            <label for="description">Description:</label>
-            <br>
-            <textarea name="campground[description]" id="description" cols="30" rows="10" placeholder="Tell us more about this campground...">
-                <%=selectedCampground.description%>
-            </textarea>
-        </div>
-        <button>Update Campgrdound</button>
-    </form>
-</body>
+<% layout("layouts/boilerplate")%>
+<h1>Edit Campground</h1>
+<form action="/campgrounds/<%=selectedCampground.id%>?_method=PUT" method="post">
+    <div>
+        <label for="title">Title</label>
+        <input type="text" name="campground[title]" id="title" placeholder="Campground's name" value="<%=selectedCampground.title%>">
+    </div>
+    <div>
+        <label for="location">Location</label>
+        <input type="text" name="campground[location]" id="location"placeholder="Where can we find this campground?" value="<%=selectedCampground.location%>">
+    </div>
+    <div>
+        <label for="price">Price</label>
+        <input type="text" name="campground[price]" id="price" placeholder="Price in USD" value="<%=selectedCampground.price%>">
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <br>
+        <textarea name="campground[description]" id="description" cols="30" rows="10" placeholder="Tell us more about this campground...">
+            <%=selectedCampground.description%>
+        </textarea>
+    </div>
+    <button>Update Campgrdound</button>
+</form>
 <br>
 <footer>
     <div>
         <a href="/campgrounds/<%=selectedCampground.id%>">Cancel Edit</a>
     </div>
 </footer>
-</html>

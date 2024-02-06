@@ -1,36 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>New Campground</title>
-</head>
-<body>
-    <h1>Add a new campground</h1>
-    <form action="/campgrounds" method="post">
-        <div>
-            <label for="title">Title</label>
-            <input type="text" name="campground[title]" id="title" placeholder="Campground's name">
-        </div>
-        <div>
-            <label for="location">Location</label>
-            <input type="text" name="campground[location]" id="location" placeholder="Where can we find this campground?">
-        </div>
-        <div>
-            <label for="price">Price</label>
-            <input type="text" name="campground[price]" id="price" placeholder="Price in USD">
-        </div>
-        <div>
-            <label for="description">Description:</label>
-            <br>
-            <textarea name="campground[description]" id="description" cols="30" rows="10" placeholder="Tell us more about this campground..."></textarea>
-        </div>
-        <button>Add Campgrdound</button>
-    </form>
-</body>
+<% layout("layouts/boilerplate")%>
+<h1>Add a new campground</h1>
+<form action="/campgrounds" method="post">
+    <div>
+        <label for="title">Title</label>
+        <input type="text" name="campground[title]" id="title" placeholder="Campground's name">
+    </div>
+    <div>
+        <label for="location">Location</label>
+        <input type="text" name="campground[location]" id="location" placeholder="Where can we find this campground?">
+    </div>
+    <div>
+        <label for="price">Price</label>
+        <input type="text" name="campground[price]" id="price" placeholder="Price in USD">
+    </div>
+    <div>
+        <label for="description">Description:</label>
+        <br>
+        <textarea name="campground[description]" id="description" cols="30" rows="10" placeholder="Tell us more about this campground..."></textarea>
+    </div>
+    <button>Add Campgrdound</button>
+</form>
 <br>
 <footer>
     <div>
         <a href="/campgrounds">Cancel</a>
     </div>
-</html>
+</footer>

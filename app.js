@@ -3,6 +3,7 @@ const path = require("path");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground");
 const methodOverride = require('method-override');
+const ejsEngine = require("ejs-mate");
 
 mongoose.connect("mongodb://localhost:27017/yelp-camp")
     .then(() => {
@@ -16,6 +17,7 @@ mongoose.connect("mongodb://localhost:27017/yelp-camp")
 const app = express();
 const port = 3000;
 
+app.engine("ejs", ejsEngine);
 app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.urlencoded({ extended: true })) // for parsing application/x-www-form-urlencoded
