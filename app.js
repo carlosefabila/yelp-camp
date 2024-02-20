@@ -2,12 +2,14 @@ const express = require("express");
 const path = require("path");
 const mongoose = require("mongoose");
 const Campground = require("./models/campground");
+const Review = require("./models/review.js");
 const methodOverride = require('method-override');
 const ejsEngine = require("ejs-mate");
 const { campgroundSchema } = require("./schemas.js");
 const expressError = require("./utils/ExpressError");
 const catchAsync = require("./utils/catchAsync");
 const ExpressError = require("./utils/ExpressError");
+const campground = require("./models/campground");
 
 mongoose.connect("mongodb://localhost:27017/yelp-camp")
     .then(() => {
@@ -84,6 +86,15 @@ app.delete("/campgrounds/:id", catchAsync(async (req,res) => {
     const { id } = req.params;
     await Campground.findByIdAndDelete(id);
     res.redirect("/campgrounds");
+}));
+
+app.post("/campgrounds/:id/reviews", catchAsync(async (req, res) => {
+    const { id } = req.params;
+    const campground = await Campground.findById(id);
+    const review = await Review.create(req.body.review);
+    campground.reviews.push(review);
+    await campground.save();
+    res.redirect(`/campgrounds/${campground.id}`);
 }));
 
 app.all("*", (req, res, next) => {
