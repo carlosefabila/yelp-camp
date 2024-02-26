@@ -20,6 +20,7 @@ mongoose.connect("mongodb://localhost:27017/yelp-camp")
             const random1000 = Math.floor(Math.random() * 1000);
             const price = Math.floor(Math.random() * 30) + 10;
             const camp = new Campground({
+                author: '65d870a625d8a592131e8b7c',
                 title: `${sample(descriptors)} ${sample(places)}`,
                 location: `${cities[random1000].city}, ${cities[random1000].state}`,
                 //image: https://random.imagecdn.app/500/150, // Another option with actually random images.
