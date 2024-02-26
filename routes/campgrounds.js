@@ -3,26 +3,17 @@ const router = express.Router();
 const { isLoggedIn, isAuthor, validateCampground } = require("../utils/middleware");
 const campgrounds = require("../controllers/campgrounds");
 
-// CREATE
+router.route("/")
+    .get(campgrounds.index)
+    .post(isLoggedIn, validateCampground, campgrounds.createCampground);
 
 router.get("/new", isLoggedIn, campgrounds.renderNewForm);
 
-router.post("/", isLoggedIn, validateCampground, campgrounds.createCampground);
-
-// READ
-
-router.get("/", campgrounds.index);
-
-router.get("/:id", campgrounds.showCampground);
-
-// UPDATE
+router.route("/:id")
+    .get(campgrounds.showCampground)
+    .put(isLoggedIn, isAuthor, validateCampground, campgrounds.updateCampground)
+    .delete(isLoggedIn, isAuthor, campgrounds.deleteCampground);
 
 router.get("/:id/edit", isLoggedIn, isAuthor, campgrounds.renderEditForm);
-
-router.put("/:id", isLoggedIn, isAuthor, validateCampground, campgrounds.updateCampground);
-
-// DELETE
-router.delete("/:id", isLoggedIn, isAuthor, campgrounds.deleteCampground);
-
 
 module.exports = router;

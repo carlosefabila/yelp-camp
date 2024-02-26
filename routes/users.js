@@ -6,18 +6,17 @@ const users = require("../controllers/users");
 
 // Register
 
-router.get("/register", users.renderRegisterForm)
-
-router.post("/register", users.registerNewUser)
+router.route("/register")
+    .get(users.renderRegisterForm)
+    .post(users.registerNewUser)
 
 // Login
 
-router.get("/login", users.renderLoginForm)
-
-router.post("/login",
-    storeReturnTo,
-    passport.authenticate("local", { failureFlash: true, failureRedirect: "/login"}),
-    users.redirectLogedInUser)
+router.route("/login")
+    .get(users.renderLoginForm)
+    .post(storeReturnTo,
+        passport.authenticate("local", { failureFlash: true, failureRedirect: "/login"}),
+        users.redirectLogedInUser)
 
 // Logout
 
