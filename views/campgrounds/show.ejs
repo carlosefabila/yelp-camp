@@ -1,5 +1,5 @@
 <% layout("layouts/boilerplate")%>
-<div class="row">
+<div class="row d-flex justify-content-around">
     <div class="col-md-6 mb-5">
         <div class="card mb-5">
             <img src="<%=selectedCampground.image%>" class="card-img-top" alt="Campground image">
@@ -12,21 +12,21 @@
                 <li class="list-group-item">Submitted by: <%=selectedCampground.author.username%></li>
                 <li class="list-group-item" aria-describedby="price-label">$<%=selectedCampground.price%> /night</li>
             </ul>
+            <% if ( currentUser && selectedCampground.author.equals(currentUser.id)) { %>
             <div class="card-body">
-                <a href="/campgrounds" class="card-link btn btn-secondary">All Campgrounds</a>
-                <a href="/campgrounds/<%=selectedCampground.id%>/edit" class="card-link btn btn-secondary">Edit Campground</a>
-            </div>
-            <div class="card-body">
+                <a href="/campgrounds/<%=selectedCampground.id%>/edit" class="card-link btn btn-secondary mb-3">Edit Campground</a>
                 <form action="/campgrounds/<%=selectedCampground.id%>?_method=DELETE" method="post">
                     <button class="btn btn-danger ml-auto">Delete Campground, forever...</button>
                 </form>
             </div>
+            <%}%>
             <div class="card-footer text-muted">
                 2 days ago
             </div>
         </div>
     </div>
     <div class="col-md-6 mb-5">
+        <% if (currentUser) {%>
         <h2>Leave a Reivew</h2>
         <form action="/campgrounds/<%=selectedCampground.id%>/reviews" method="POST" class="mb-3 needs-validation" novalidate>
             <div class="mb-3">
@@ -42,14 +42,19 @@
             </div>
             <button class="btn btn-success">Submit</button>
         </form>
+        <% } %>
+        <H2>What people think of this place:</H2>
         <% for (let review of selectedCampground.reviews ) { %>
             <div class="card mb-3">
                 <div class="card-body">
                     <h5 class="card-title"><%=review.rating%> Stars</h5>
+                    <h6 class="card-subtitle mb-2 rext-muted">By <%=review.author.username%></h6>
                     <p class="card-text"><%=review.body%></p>
+                    <% if (currentUser && review.author.equals(currentUser.id)){%>
                     <form action="/campgrounds/<%=selectedCampground.id%>/reviews/<%=review.id%>?_method=DELETE" method="POST">
                         <button class="btn btn-danger btn-sm">Delete Review</button>
                     </form>
+                    <% } %>
                 </div>
             </div>
         <% } %>
