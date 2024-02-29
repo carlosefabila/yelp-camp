@@ -8,7 +8,10 @@ module.exports.renderNewForm = (req, res) => {
 }
 
 module.exports.createCampground = catchAsync(async (req,res) => {
-    const campground = await Campground.create({...req.body.campground, author: req.user._id });
+    const images = req.files.map(f => ({ url: f.path, filename: f.filename }))
+    console.log("Successfully Saved images in Cloudinary, now saving everything in database");
+    const campground = await Campground.create({...req.body.campground, author: req.user._id, images });
+    console.log(campground);
     req.flash("success", "Successfully registered a new campground!");
     res.redirect(`/campgrounds/${campground.id}`);
 })
